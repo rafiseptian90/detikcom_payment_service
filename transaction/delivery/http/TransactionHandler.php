@@ -25,16 +25,33 @@ class TransactionHandler
         try {
             $transaction = $this->transactionUsecase->storeTransaction($request);
         } catch(\Exception $e) {
-            if ($e instanceof \InvalidArgumentException) {
+            if ($e instanceof \InvalidArgumentException)
                 return ResponseJSON::unprocessableEntity('Unprocessable Entity', json_decode($e->getMessage()));
-            }
 
             return ResponseJSON::internalServerError('Internal Server Error. ' . $e->getMessage());
         }
 
         return ResponseJSON::successWithData('New Transaction has been added', [
-            'invoice_id' => $transaction->invoiceID,
             'references_id' => $transaction->referencesID,
+            'number_va' => $transaction->numberVA,
+            'status' => $transaction->getStatus()
+        ]);
+    }
+
+    public function show(string $referencesID, string $merchantID) : string
+    {
+        try {
+            $transaction = $this->transactionUsecase->retrieveTransaction($referencesID, $merchantID);
+        } catch(\Exception $e) {
+            if ($e instanceof \PDOException)
+                return ResponseJSON::notFound($e->getMessage());
+
+            return ResponseJSON::internalServerError("Something went wrong happen in server. " . $e->getMessage());
+        }
+
+        return ResponseJSON::successWithData('Transaction has been loaded', [
+            'references_id' => $transaction->referencesID,
+            'invoice_id' => $transaction->invoiceID,
             'status' => $transaction->getStatus()
         ]);
     }

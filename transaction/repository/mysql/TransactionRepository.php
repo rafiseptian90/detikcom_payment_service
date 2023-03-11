@@ -59,16 +59,19 @@ class TransactionRepository implements TransactionRepoInterface
         $stmt->bindParam(':merchant_id', $merchantID);
 
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        if (!$result = $stmt->fetch())
+            throw new \PDOException("Record not found");
 
         $transaction = new Transaction();
         $transaction->id = $result->id;
+        $transaction->invoiceID = $result->invoice_id;
         $transaction->referencesID = $result->references_id;
         $transaction->merchantID = $result->merchant_id;
+        $transaction->numberVA = $result->number_va;
         $transaction->itemName = $result->item_name;
         $transaction->customerName = $result->customer_name;
         $transaction->paymentType = $result->payment_type;
-        $transaction->status = $transaction->getStatus();
+        $transaction->status = $result->status;
 
         return $transaction;
     }

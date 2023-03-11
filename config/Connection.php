@@ -22,8 +22,8 @@ class MySQLConnection {
         $options = [
             // Throw exceptions when errors occur
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            // Set default fetch mode to associative array
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            // Set default fetch mode to object
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             // Ensure PDO uses real prepared statements to provides an additional layer of security against SQL injection
             PDO::ATTR_EMULATE_PREPARES => false,
         ];

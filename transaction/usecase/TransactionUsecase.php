@@ -61,8 +61,13 @@ class TransactionUsecase implements TransactionUsecaseInterface
 
     public function retrieveTransaction(string $referencesID, string $merchantID): Transaction
     {
-        // TODO: Implement retrieveTransaction() method.
-        return new Transaction();
+        try {
+            $transaction = $this->transactionRepo->retrieveTransaction($referencesID, $merchantID);
+        } catch(\PDOException $e) {
+            throw new \PDOException($e->getMessage());
+        }
+
+        return $transaction;
     }
 
     public function updateTransaction(UpdateTransactionRequest $transactionRequest, string $referencesID): bool
