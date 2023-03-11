@@ -52,8 +52,8 @@ class TransactionUsecase implements TransactionUsecaseInterface
             }
 
             $newTransaction = $this->transactionRepo->storeTransaction($transaction);
-        } catch(\Exception $e) {
-            throw new \Exception("Failed to create a new transaction. ", $e->getMessage());
+        } catch(\PDOException $e) {
+            throw new \PDOException("Failed to create a new transaction. " . $e->getMessage());
         }
 
         return $newTransaction;
