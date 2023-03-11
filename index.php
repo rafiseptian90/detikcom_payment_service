@@ -16,4 +16,3 @@ $connection = MySQLConnection::init();
 $transactionRepo = new TransactionRepository($connection);
 $transactionUsecase = new TransactionUsecase($transactionRepo);
 $transactionHandler = new TransactionHandler($transactionUsecase);
-
