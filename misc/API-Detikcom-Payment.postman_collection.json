@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "60927090-41ea-41ee-9549-faef85a4eb1e",
+		"name": "API-Detikcom-Payment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13605424"
+	},
+	"item": [
+		{
+			"name": "200 Create a new Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invoice_id\": \"demo_zZt4uvXnM1TyOnrZ\",\n    \"merchant_id\": \"demo_merchant_0ethtA77Jmmux92F\",\n    \"item_name\": \"iPhone 12 Pro Max\",\n    \"amount\": 15000000,\n    \"payment_type\": \"credit_card\",\n    \"customer_name\": \"Rafi Septian Hadi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Create a new Transaction Copy",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 200,\n    \"msg_status\": \"New Transaction has been added\",\n    \"data\": {\n        \"references_id\": \"demo_8815370506262\",\n        \"number_va\": \"851634428629587\",\n        \"status\": \"Pending\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "400 Create a new Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invoice_id\": \"demo_zZt4uvXnM1TyOnrX\",\n    \"merchant_id\": \"demo_merchant_0ethtA77Jmmux92F\",\n    \"item_name\": \"iPhone 12 Pro Max\",\n    \"amount\": 15000000,\n    \"payment_type\": \"credit_card\",\n    \"customer_name\": \"Rafi Septian Hadi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 Create a new Transaction",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 400,\n    \"msg_status\": \"Failed to create new transaction. Error duplicate entry for some attribute\"\n}"
+				}
+			]
+		},
+		{
+			"name": "422 Create a new Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"invoice_id\": \"demo_zZt4uvXnM1TyOnrZ\",\n    \"merchant_id\": \"demo_merchant_uvsVgfdsafadsffsfsafsadfsfdfsdfsdfsdaffqAkxOtltRVh\",\n    \"item_name\": \"iMac 2022\",\n    \"amount\": 20000000,\n    \"payment_type\": \"CreditCard\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "422 Create a new Transaction Copy 2",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+					"code": 422,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 422,\n    \"msg_status\": \"Unprocessable Entity\",\n    \"errors\": [\n        \"Merchant ID must be less than 36 character.\",\n        \"Customer Name must be filled.\",\n        \"Invalid Payment Type value. Only accept credit_card and virtual_bank\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "200 Get Single Transaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction?referencesId=demo_6090391404324&merchantId=demo_merchant_0ethtA77Jmmux92X",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "referencesId",
+							"value": "demo_6090391404324"
+						},
+						{
+							"key": "merchantId",
+							"value": "demo_merchant_0ethtA77Jmmux92X"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Get Single Transaction",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 200,\n    \"msg_status\": \"Transaction has been loaded\",\n    \"data\": {\n        \"references_id\": \"demo_8815370506262\",\n        \"invoice_id\": \"demo_zZt4uvXnM1TyOnrZ\",\n        \"status\": \"Pending\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "404 Get Single Transaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction?merchantId=demo_merchant_xyznotfound&referencesId=demo_xyznotfound",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "merchantId",
+							"value": "demo_merchant_xyznotfound"
+						},
+						{
+							"key": "referencesId",
+							"value": "demo_xyznotfound"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "404 Get Single Transaction",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 404,\n    \"msg_status\": \"Record not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "400 Get Single Transaction Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/api/v1/transaction?merchantId=demo_merchant_0ethtA77Jmmux92F",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "merchantId",
+							"value": "demo_merchant_0ethtA77Jmmux92F"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 Get Single Transaction",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{uri}}/api/v1/transaction",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"code_status\": 400,\n    \"msg_status\": \"referencesId must be passed as a query string\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "uri",
+			"value": "http://localhost:7000",
+			"type": "string"
+		}
+	]
+}
