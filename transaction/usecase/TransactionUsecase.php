@@ -53,7 +53,10 @@ class TransactionUsecase implements TransactionUsecaseInterface
 
             $newTransaction = $this->transactionRepo->storeTransaction($transaction);
         } catch(\PDOException $e) {
-            throw new \PDOException("Failed to create a new transaction. " . $e->getMessage());
+            if ($e->getCode() === 23000)
+                throw new \PDOException("Error duplicate entry for some attribute");
+
+            throw new \PDOException($e->getMessage());
         }
 
         return $newTransaction;
@@ -84,7 +87,7 @@ class TransactionUsecase implements TransactionUsecaseInterface
 
             $this->transactionRepo->updateTransaction($transaction->referencesID, $transaction->status);
         } catch(\PDOException $e) {
-            throw new \PDOException("Failed to update a transaction. " . $e->getMessage());
+            throw new \PDOException($e->getMessage());
         }
 
         return true;

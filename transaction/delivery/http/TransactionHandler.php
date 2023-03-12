@@ -27,6 +27,9 @@ class TransactionHandler
         } catch(\Exception $e) {
             if ($e instanceof \InvalidArgumentException)
                 return ResponseJSON::unprocessableEntity('Unprocessable Entity', json_decode($e->getMessage()));
+            if ($e instanceof \PDOException) {
+                return ResponseJSON::badRequest("Failed to create new transaction. " . $e->getMessage());
+            }
 
             return ResponseJSON::internalServerError('Internal Server Error. ' . $e->getMessage());
         }
