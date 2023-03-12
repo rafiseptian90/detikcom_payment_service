@@ -9,13 +9,18 @@ use Domain\Transaction;
 class UpdateTransactionRequest
 {
     public array $allowedStatus = ['paid', 'pending', 'failed'];
-    private string $status;
+    private string $referencesId, $status;
 
-    public function __construct(string $status)
+    public function __construct(string $referencesId, string $status)
     {
+        $this->referencesId = $referencesId;
         $this->status = $status;
     }
 
+    public function getReferencesId() : string
+    {
+        return $this->referencesId;
+    }
     public function getStatus() : int
     {
         return match (strtolower($this->status)) {
@@ -29,9 +34,12 @@ class UpdateTransactionRequest
     {
         $errors = [];
 
+        if (empty($this->referencesId))
+            $errors[] = "References ID must be filled.";
+
         if (empty($this->status)) {
             $errors[] = "Invoice ID must be filled.";
-        } else if (!in_array($this->status, $this->allowedStatus)) {
+        } else if (!in_array(strtolower($this->status), $this->allowedStatus)) {
             $errors[] = "Invalid Status value. Only accept pending, paid, and failed.";
         }
 

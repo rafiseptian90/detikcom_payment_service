@@ -72,7 +72,21 @@ class TransactionUsecase implements TransactionUsecaseInterface
 
     public function updateTransaction(UpdateTransactionRequest $transactionRequest, string $referencesID): bool
     {
-        // TODO: Implement updateTransaction() method.
+        $errors = $transactionRequest->validate();
+        if (!empty($errors)) {
+            throw new \InvalidArgumentException(json_encode($errors));
+        }
+
+        try {
+            $transaction = new Transaction();
+            $transaction->referencesID = $transactionRequest->getReferencesId();
+            $transaction->status = $transactionRequest->getStatus();
+
+            $this->transactionRepo->updateTransaction($transaction->referencesID, $transaction->status);
+        } catch(\PDOException $e) {
+            throw new \PDOException("Failed to update a transaction. " . $e->getMessage());
+        }
+
         return true;
     }
 }

@@ -55,5 +55,5 @@ interface TransactionUsecase {
 interface TransactionRepository {
     public function storeTransaction(Transaction $transaction): Transaction;
     public function retrieveTransaction(string $referencesID, string $merchantID): Transaction;
-    public function updateTransaction(string $referencesID, string $status): bool;
+    public function updateTransaction(string $referencesID, int $status): bool;
 }
