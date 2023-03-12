@@ -82,20 +82,22 @@ class TransactionRepository implements TransactionRepoInterface
      * @return bool
      * @throws Exception
      */
-    public function updateTransaction(string $referencesID, string $status): bool
+    public function updateTransaction(string $referencesID, int $status): bool
     {
-        $transaction = new Transaction();
-        $transaction->setStatus($status);
+        try {
+            $stmt = $this->pdo->prepare("UPDATE transactions SET status = :status WHERE references_id = :references_id");
 
-        $stmt = $this->pdo->prepare("UPDATE transactions SET status = :status WHERE references_id = :references_id");
+            $stmt->bindParam(':references_id', $referencesID);
+            $stmt->bindParam(':status', $status);
 
-        $stmt->bindParam(':references_id', $referencesID);
-        $stmt->bindParam(':status', $transaction->status);
+            $stmt->execute();
 
-        $stmt->execute();
-
-        if ($stmt->rowCount() < 1)
-            return 0;
+            if ($stmt->rowCount() < 1) {
+                throw new \Exception("Record not found");
+            }
+        } catch(\PDOException $e) {
+            throw new \PDOException("Error : {$stmt->errorInfo()[2]}", $stmt->errorInfo()[0], $e);
+        }
 
         return 1;
     }
