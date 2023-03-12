@@ -35,8 +35,8 @@ class TransactionHandler
         }
 
         return ResponseJSON::successWithData('New Transaction has been added', [
-            'references_id' => $transaction->referencesID,
-            'number_va' => $transaction->numberVA,
+            'references_id' => htmlspecialchars($transaction->referencesID, ENT_QUOTES, 'UTF-8'),
+            'number_va' => htmlspecialchars($transaction->numberVA, ENT_QUOTES, 'UTF-8'),
             'status' => $transaction->getStatus()
         ]);
     }
@@ -53,8 +53,8 @@ class TransactionHandler
         }
 
         return ResponseJSON::successWithData('Transaction has been loaded', [
-            'references_id' => $transaction->referencesID,
-            'invoice_id' => $transaction->invoiceID,
+            'references_id' => htmlspecialchars($transaction->referencesID, ENT_QUOTES, 'UTF-8'),
+            'invoice_id' => htmlspecialchars($transaction->invoiceID, ENT_QUOTES, 'UTF-8'),
             'status' => $transaction->getStatus()
         ]);
     }
