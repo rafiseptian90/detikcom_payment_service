@@ -79,7 +79,9 @@ class StoreTransactionRequest
         // Validate customerName property
         if (empty($this->customerName)) {
             $errors[] = "Customer Name must be filled.";
-        } else if (!preg_match('/^[a-zA-Z ]+$/', $this->customerName)) {
+        } else if (
+            !filter_var($this->customerName, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^[a-zA-Z ]+$/"]])
+        ) {
             $errors[] = "Customer Name must be an alphabet character only.";
         } else if (strlen($this->customerName) > self::CUSTOMER_NAME_MAX_LENGTH) {
             $errors[] = sprintf("Customer Name must be less than %d character.", self::CUSTOMER_NAME_MAX_LENGTH);
@@ -95,7 +97,7 @@ class StoreTransactionRequest
         // Validate amount property
         if (empty($this->amount)) {
             $errors[] = "Amount must be filled.";
-        } else if (!preg_match('/^[0-9]+$/', $this->amount)) {
+        } else if (!filter_var($this->amount, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^[0-9]+$/"]])) {
             $errors[] = "Amount must be a numeric character only.";
         }
 

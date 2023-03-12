@@ -93,10 +93,10 @@ class TransactionRepository implements TransactionRepoInterface
             $stmt->execute();
 
             if ($stmt->rowCount() < 1) {
-                throw new \Exception("Record not found");
+                throw new \PDOException("Record not found", 1488);
             }
         } catch(\PDOException $e) {
-            throw new \PDOException("Error : {$stmt->errorInfo()[2]}", $stmt->errorInfo()[0], $e);
+            throw new \PDOException($e->getMessage());
         }
 
         return 1;

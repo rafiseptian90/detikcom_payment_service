@@ -29,8 +29,10 @@ try {
 } catch(\Exception $e){
     if ($e instanceof \InvalidArgumentException) {
         echo "Invalid argument given : " . join(',', json_decode($e->getMessage(), true)) . PHP_EOL;
+    } else if($e instanceof \PDOException) {
+        echo "Failed to update a transaction : " . $e->getMessage() . PHP_EOL;
     } else {
-        echo $e->getMessage() . PHP_EOL;
+        echo "Internal Server Error. " . $e->getMessage() . PHP_EOL;
     }
 
     exit(1);
